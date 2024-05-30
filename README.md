@@ -1,6 +1,9 @@
 ## Multipass-LXC Host Network configuration
 
 
+**Macvlan Network:** Allows containers to have their own MAC address, appearing as unique devices on the network.
+
+
 * Create a multipass ubuntu instance and name it lxd-server
 
 ```shell
@@ -62,3 +65,7 @@ lxc remote add default $(mp info lxd-server | grep IPv4 | awk '{print $2}') --pa
 incus launch images:amazonlinux/2023/arm64 amazonlinux --network macvlan0
 ```
 
+
+### Notes:
+
+> **WiFi Limitations:** Bridging over **WiFi** is generally not recommended because many WiFi drivers do not support it. macvlan is a workaround that allows instances to communicate on the network as if they are separate physical devices.
