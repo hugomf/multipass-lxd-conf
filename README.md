@@ -1,8 +1,6 @@
-## Multipass-LXC Host Network configuration
-
+# Multipass-LXC Host Network configuration
 
 **Macvlan Network:** Allows containers to have their own MAC address, appearing as unique devices on the network.
-
 
 * Create a multipass ubuntu instance and name it lxd-server
 
@@ -11,10 +9,10 @@ mp launch -n lxd-server -c 2 -m 4G -d 50G
 ```
 
 Connect to lxd-server
+
 ```shell
 mp shell lxd-server
 ```
-
 
 * Initialize the configuration
 
@@ -27,7 +25,6 @@ sudo lxd init --auto --trust-password password --network-address '[::]'
 ```shell
 sudo modprobe macvlan
 ```
-
 
 
 * create the macvlan network in lxd
@@ -46,25 +43,23 @@ lxc image copy images:amazonlinux/2023/arm64 local: --copy-aliases
 lxc image unset-property amazonlinux/2023/arm64 requirements.cgroup
 ```
 
-
 * Go back to your host machine
-  
+
 ```shell
 exit
 ```
 
-
 * Add the remote server in the client
+
 ```shell
 lxc remote add default $(mp info lxd-server | grep IPv4 | awk '{print $2}') --password password --accept-certificate
 ```
 
 * Create an amazon instance
-  
+
 ```shell
 incus launch images:amazonlinux/2023/arm64 amazonlinux --network macvlan0
 ```
-
 
 ### Notes:
 
