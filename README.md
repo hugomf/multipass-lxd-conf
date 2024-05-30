@@ -68,4 +68,6 @@ incus launch images:amazonlinux/2023/arm64 amazonlinux --network macvlan0
 
 ### Notes:
 
+**Why macvlan?**
+
 > **WiFi Limitations:** Bridging over **WiFi** is generally not recommended because many WiFi drivers do not support it. macvlan is a workaround that allows instances to communicate on the network as if they are separate physical devices.
