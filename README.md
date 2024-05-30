@@ -42,8 +42,8 @@ incus network create macvlan0 --type=macvlan parent=eth0
 * In order to run amazonlinux instances we need cgroup v1, to do that we need to download the image and unset the requirements cgroup
 
 ```shell
-lxc image copy images:amazonlinux local: --copy-aliases
-lxc image unset-property amazonlinux requirements.cgroup
+lxc image copy images:amazonlinux/2023/arm64 local: --copy-aliases
+lxc image unset-property amazonlinux/2023/arm64 requirements.cgroup
 ```
 
 
