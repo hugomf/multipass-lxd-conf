@@ -11,11 +11,10 @@
 * Configure multipass **bridge** as follows:
 
 ```shell
-mp networks # check the wifi interface (usually it is en0)
+mp networks # check the wifi interface (usually it's en0)
 
 mp set local.bridged-network=en0
 ```
-
 
 * Create a multipass ubuntu instance and name it `lxc`, make sure to add bridged `flag`
 
@@ -23,7 +22,7 @@ mp set local.bridged-network=en0
 mp launch -n lxc -c 2 -m 4G -d 50G --bridged
 ```
 
-Connect to lxc
+* Connect to lxc
 
 ```shell
 mp shell lxc
@@ -51,11 +50,22 @@ ip addr  # check the interface id to change the parent flag in the next command
 lxc network create macvlan0 --type=macvlan parent=eth0
 ```
 
-* In order to run amazonlinux instances we need cgroup v1, we need to download the image and unset the requirements cgroup in the image.
+## Setup LXC to run Amazon Linux images (Optional)
+
+* In order to run **Amazon Linux** instances we need cgroup v1, we need to download the image and unset the requirements cgroup in the image.
+
+### For ARM
 
 ```shell
 lxc image copy images:amazonlinux/2023/arm64 local: --copy-aliases
 lxc image unset-property amazonlinux/2023/arm64 requirements.cgroup
+```
+
+### For Intel
+
+```shell
+lxc image copy images:amazonlinux/2023/amd64 local: --copy-aliases
+lxc image unset-property amazonlinux/2023/amd64 requirements.cgroup
 ```
 
 * Go back to your host machine
@@ -64,22 +74,32 @@ lxc image unset-property amazonlinux/2023/arm64 requirements.cgroup
 exit
 ```
 
-* Add the remote server in the client
+## Configure LXC client on host machine (MACOS)
+
+* Add the remote server in the client *(getting multipass lxc's instance IP address)*
 
 ```shell
 lxc remote add default $(mp info lxc | grep IPv4 | awk '{print $2}') --password password --accept-certificate
 ```
 
-* Point the remote server to default
+* Point the remote server to **default**
 
 ```shell
 lxc remote switch default
 ```
 
-* Create an amazon instance
+## Create the Amazon Linux instance
+
+### For ARM
 
 ```shell
 lxc launch images:amazonlinux/2023/arm64 amazonlinux --network macvlan0
+```
+
+### For Intel / AMD
+
+```shell
+lxc launch images:amazonlinux/2023/amd64 amazonlinux --network macvlan0
 ```
 
 ### Notes:
