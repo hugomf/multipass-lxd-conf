@@ -58,7 +58,7 @@ lxc remote add default $(mp info lxd-server | grep IPv4 | awk '{print $2}') --pa
 * Create an amazon instance
 
 ```shell
-incus launch images:amazonlinux/2023/arm64 amazonlinux --network macvlan0
+lxc launch images:amazonlinux/2023/arm64 amazonlinux --network macvlan0
 ```
 
 ### Notes:
