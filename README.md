@@ -36,7 +36,7 @@ ip addr  # check the interface id to change the parent flag in the next command
 lxc network create macvlan0 --type=macvlan parent=eth0
 ```
 
-* In order to run amazonlinux instances we need cgroup v1, to do that we need to download the image and unset the requirements cgroup
+* In order to run amazonlinux instances we need cgroup v1, we need to download the image and unset the requirements cgroup
 
 ```shell
 lxc image copy images:amazonlinux/2023/arm64 local: --copy-aliases
