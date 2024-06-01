@@ -33,7 +33,7 @@ sudo modprobe macvlan
 # Verify the network configuration
 ip addr  # check the interface id to change the parent flag in the next command
 
-incus network create macvlan0 --type=macvlan parent=eth0
+lxc network create macvlan0 --type=macvlan parent=eth0
 ```
 
 * In order to run amazonlinux instances we need cgroup v1, to do that we need to download the image and unset the requirements cgroup
