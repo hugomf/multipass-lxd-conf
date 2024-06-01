@@ -2,16 +2,31 @@
 
 **Macvlan Network:** Allows containers to have their own MAC address, appearing as unique devices on the network.
 
-* Create a multipass ubuntu instance and name it lxd-server
+
+
+## Configuration
+
+* Make sure to set an alias `alias mp=multipass` on your `.bashrc` or `.zshrc` file
+
+* Configure multipass **bridge** as follows:
 
 ```shell
-mp launch -n lxd-server -c 2 -m 4G -d 50G
+mp networks # check the wifi interface (usually it is en0)
+
+mp set local.bridged-network=en0
 ```
 
-Connect to lxd-server
+
+* Create a multipass ubuntu instance and name it `lxc`, make sure to add bridged `flag`
 
 ```shell
-mp shell lxd-server
+mp launch -n lxc -c 2 -m 4G -d 50G --bridged
+```
+
+Connect to lxc
+
+```shell
+mp shell lxc
 ```
 
 * Initialize the configuration
@@ -52,7 +67,13 @@ exit
 * Add the remote server in the client
 
 ```shell
-lxc remote add default $(mp info lxd-server | grep IPv4 | awk '{print $2}') --password password --accept-certificate
+lxc remote add default $(mp info lxc | grep IPv4 | awk '{print $2}') --password password --accept-certificate
+```
+
+* Point the remote server to default
+
+```shell
+lxc remote switch default
 ```
 
 * Create an amazon instance
