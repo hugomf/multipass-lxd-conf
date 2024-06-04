@@ -40,7 +40,6 @@ sudo lxd init --auto --trust-password password --network-address '[::]'
 sudo modprobe macvlan
 ```
 
-
 * create the macvlan network in lxd
 
 ```shell
