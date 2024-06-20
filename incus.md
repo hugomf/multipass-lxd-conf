@@ -42,6 +42,8 @@ sudo groupadd incus-admin
 sudo gpasswd -a ubuntu incus-admin
 ```
 
+>  **Note:** Remember to restart your terminal so the user can be assigned to the group
+
 * Initialize configuration, accept all the defaults except for `Would you like the server to be available over the network?`
 enter `yes`, hit enter and continue
 
@@ -86,6 +88,8 @@ incus image copy images:amazonlinux/2/arm64 local: --copy-aliases
 incus image unset-property amazonlinux/2/arm64 requirements.cgroup
 ```
 
+
+
 ### For Intel
 
 ```shell
@@ -104,7 +108,7 @@ exit
 * Add the remote server in the client *(getting multipass lxc's instance IP address)*
 
 ```shell
-incus remote add default $(mp info incus | grep IPv4 | awk '{print $2}') --password password --accept-certificate
+incus remote add default {paste token here}
 ```
 
 * Point the remote server to **default**
@@ -113,7 +117,13 @@ incus remote add default $(mp info incus | grep IPv4 | awk '{print $2}') --passw
 incus remote switch default
 ```
 
-## Create the Amazon Linux instance
+* Create for example opensuse instance
+
+```shell
+incus launch images:opensuse/tumbleweed opensuse --network macvlan0
+```
+
+## Create the Amazon Linux instance (Optional)
 
 ### For ARM
 
