@@ -2,8 +2,6 @@
 
 **Macvlan Network:** Allows containers to have their own MAC address, appearing as unique devices on the network.
 
-
-
 ## Configuration
 
 * Make sure to set an alias `alias mp=multipass` on your `.bashrc` or `.zshrc` file
