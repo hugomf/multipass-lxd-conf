@@ -117,7 +117,13 @@ incus remote add default {paste token here}
 incus remote switch default
 ```
 
-* Create for example opensuse instance
+** List availabe images
+
+```shell
+incus image list images:
+```
+
+* Create for example opensuse instance (remember to assign it to the macvlan0 network)
 
 ```shell
 incus launch images:opensuse/tumbleweed opensuse --network macvlan0
